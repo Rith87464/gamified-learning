@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Leaderboard</h1>
+  <ul id="leaderboard"></ul>
+  <a href="index.html">Back to Quiz</a>
+
+  <script>
+    async function loadLeaderboard() {
+      let res = await fetch("http://localhost:3000/leaderboard");
+      let data = await res.json();
+      let list = document.getElementById("leaderboard");
+      list.innerHTML = "";
+      data.forEach(player => {
+        let li = document.createElement("li");
+        li.textContent = `${player.name} - ${player.score} pts`;
+        list.appendChild(li);
+      });
+    }
+    loadLeaderboard();
+  </script>
+</body>
+</html>
